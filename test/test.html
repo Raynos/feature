@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Test page </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="../feature.js"></script>
+        <link rel="stylesheet" href="mocha.css" />
+        <script src="mocha.js"></script>
+        <script>mocha.setup('tdd')</script>
+        <script>
+          function assert(expr, msg) {
+            if (!expr) throw new Error(msg || 'failed');
+          }
+        </script>
+        <script>
+          onload = function () {
+            runner = mocha.run()
+              .globals(["runner", "onerror", "location"]);
+          }
+        </script>
+    </head>
+
+    <body>
+        <div id="mocha"></div>
+        <div id="testbody"></div>
+        <script>
+            suite("Features", function () {
+                Object.keys(window.features).forEach(function (feature) {
+                    test(feature, function () {
+                        assert(features[feature], feature);    
+                    });
+                });    
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "name": "feature", 
+    "version": "0.0.1", 
+    "description": "Detect your host environment features!", 
+    "keywords": ["feature", "detection"], 
+    "author": "Jake Verbaten <raynos2@gmail.com>",
+    "repository": "git://github.com/Raynos/feature.git",
+    "engines": { 
+        "node": "0.6.x" 
+    },
+    "devDependencies": {
+        "read-dir-files": "0.0.2"
+    }
+}
