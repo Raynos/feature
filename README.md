@@ -30,6 +30,18 @@ Detecting those host environment features for you
 
 `window.features` is a global object containing all the features that are present in this browser. If the feature is present it's value is `true` and `false` if the feature test failed.
 
+```
+if (features["EventTarget.addEventListener"]) {
+    window.addEventListener("click", handler);
+} else {
+    window.attachEvent("onclick", handler);
+}
+```
+
+### Dynamic APIS
+
+`<TODO>`
+
 ## Installation
 
 Just include `<script src="feature.js"></script>`
