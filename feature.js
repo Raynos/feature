@@ -4,12 +4,12 @@
 var exception;
 
 try {
-    document.appendChild(0);
+    document.appendChild(document);
 } catch (error) {
     exception = error;
 }
 
-window.features["DOMException.code"] = exception.code === 8 ? true : false;
+window.features["DOMException.code"] = exception.code === 3 ? true : false;
 }());
 
 (function () { 
