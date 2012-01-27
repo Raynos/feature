@@ -32,11 +32,11 @@ Detecting those host environment features for you
 
 ## Installation
 
-<script src="feature.js"></script>
+Just include `<script src="feature.js"></script>`
 
 ## Test
 
-lol tests.
+See test/test.html
 
 ## Contributors
 
