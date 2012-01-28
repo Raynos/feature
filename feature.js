@@ -44,7 +44,35 @@ features["DOM.EventTarget.dispatchEvent"] = !!document.dispatchEvent;
 }());
 
 (function () { 
-features["DOM.DOMError.exists"] = !!window.DOMError;
+features["DOM.DocumentType.after"] = !!(document.doctype && document.doctype.after);
+}());
+
+(function () { 
+features["DOM.DocumentType.remove"] = !!(document.doctype && document.doctype.remove);
+}());
+
+(function () { 
+features["DOM.DocumentType.exists"] = !!(window.DocumentType);
+}());
+
+(function () { 
+features["DOM.DocumentType.systemId"] = !!("systemId" in document.doctype);
+}());
+
+(function () { 
+features["DOM.DocumentType.before"] = !!(document.doctype && document.doctype.before);
+}());
+
+(function () { 
+features["DOM.DocumentType.replace"] = !!(document.doctype && document.doctype.replace);
+}());
+
+(function () { 
+features["DOM.DocumentType.publicId"] = !!("publicId" in document.doctype);
+}());
+
+(function () { 
+features["DOM.DocumentType.name"] = !!("name" in document.doctype);
 }());
 
 (function () { 
@@ -326,6 +354,142 @@ features["DOM.DOMException.exists"] = !!window.DOMException;
 features["DOM.DOMException.constants"] = 
     (window.DOMException && window.DOMException.DATA_CLONE_ERR === 25);
 
+}());
+
+(function () { 
+features["DOM.Element.append"] = !!(document.documentElement.append);
+}());
+
+(function () { 
+features["DOM.Element.localName"] = !!("localName" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.classList"] = !!("classList" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.children"] = !!("children" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.after"] = !!(document.documentElement.after);
+}());
+
+(function () { 
+features["DOM.Element.getAttribute"] = !!(document.documentElement.getAttribute);
+}());
+
+(function () { 
+features["DOM.Element.remove"] = !!(document.documentElement.remove);
+}());
+
+(function () { 
+features["DOM.Element.attributes"] = !!("attributes" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.exists"] = !!(window.Element);
+}());
+
+(function () { 
+features["DOM.Element.hasAttribute"] = !!(document.documentElement.hasAttribute);
+}());
+
+(function () { 
+features["DOM.Element.tagName"] = !!("tagName" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.prefix"] = !!("prefix" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.nextElementSibling"] = !!("nextElementSibling" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.namespaceURI"] = !!("namespaceURI" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.getElementsByTagNameNS"] = !!(document.documentElement.getElementsByTagNameNS);
+}());
+
+(function () { 
+features["DOM.Element.getElementsByTagName"] = !!(document.documentElement.getElementsByTagName);
+}());
+
+(function () { 
+features["DOM.Element.removeAttribute"] = !!(document.documentElement.removeAttribute);
+}());
+
+(function () { 
+features["DOM.Element.lastElementChild"] = !!("lastElementChild" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.hasAttributeNS"] = !!(document.documentElement.hasAttributeNS);
+}());
+
+(function () { 
+features["DOM.Element.before"] = !!(document.documentElement.before);
+}());
+
+(function () { 
+features["DOM.Element.previousElementSibling"] = !!("previousElementSibling" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.className"] = !!("className" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.childElementCount"] = !!("childElementCount" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.id"] = !!("id" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.Element.replace"] = !!(document.documentElement.replace);
+}());
+
+(function () { 
+features["DOM.Element.prepend"] = !!(document.documentElement.prepend);
+}());
+
+(function () { 
+features["DOM.Element.getElementsByClassName"] = !!(document.documentElement.getElementsByClassName);
+}());
+
+(function () { 
+features["DOM.Element.getAttributeNS"] = !!(document.documentElement.getAttributeNS);
+}());
+
+(function () { 
+features["DOM.Element.removeAttributeNS"] = !!(document.documentElement.removeAttributeNS);
+}());
+
+(function () { 
+features["DOM.Element.firstElementChild"] = !!("firstElementChild" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.append"] = !!(document.createDocumentFragment().append);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.exists"] = !!(window.DocumentFragment);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.prepend"] = !!(document.createDocumentFragment().prepend);
+}());
+
+(function () { 
+features["DOM.DOMError.exists"] = !!window.DOMError;
 }());
 
 (function () { 
