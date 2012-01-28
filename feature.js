@@ -32,7 +32,61 @@ features["DOM.CustomEvent.detail"] = (ev && ev.detail === detail);
 }());
 
 (function () { 
+features["DOM.EventTarget.addEventListener"] = !!document.addEventListener;
+}());
+
+(function () { 
+features["DOM.EventTarget.removeEventListener"] = !!document.removeEventListener;
+}());
+
+(function () { 
+features["DOM.EventTarget.dispatchEvent"] = !!document.dispatchEvent;
+}());
+
+(function () { 
 features["DOM.DOMError.exists"] = !!window.DOMError;
+}());
+
+(function () { 
+var input = document.createElement("input");
+features["DOM.Node.nodeName"] = (input.nodeName === "INPUT");
+}());
+
+(function () { 
+features["DOM.Node.baseURI"] = (document.baseURI === location.href);
+}());
+
+(function () { 
+features["DOM.Node.exists"] = !!window.Node;
+}());
+
+(function () { 
+features["DOM.Node.parentNode"] = 
+    (document.childNodes[0].parentNode === document);
+}());
+
+(function () { 
+features["DOM.Node.ownerDocument"] = 
+    (document.childNodes[0].ownerDocument === document);
+}());
+
+(function () { 
+features["DOM.Node.hasChildNodes"] = !!(document.hasChildNodes);
+}());
+
+(function () { 
+var input = document.createElement("input");
+features["DOM.Node.nodeType"] = (input.nodeType === 1);
+}());
+
+(function () { 
+features["DOM.Node.constants"] = 
+    (window.Node && window.Node.DOCUMENT_TYPE_NODE === 10);
+}());
+
+(function () { 
+var node = document.documentElement;
+features["DOM.Node.parentElement"] = (node.childNodes[0].parentElement === node);
 }());
 
 (function () { 
@@ -55,7 +109,7 @@ features["DOM.DOMException.exists"] = !!window.DOMException;
 
 (function () { 
 features["DOM.DOMException.constants"] = 
-    (window.DOMException.DATA_CLONE_ERR === 25);
+    (window.DOMException && window.DOMException.DATA_CLONE_ERR === 25);
 
 }());
 
@@ -187,7 +241,7 @@ input.click();
 }());
 
 (function () { 
-features["DOM.Event.constants"] = (window.Event.AT_TARGET === 2);
+features["DOM.Event.constants"] = (window.Event && window.Event.AT_TARGET === 2);
 }());
 
 

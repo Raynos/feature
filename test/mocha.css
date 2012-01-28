@@ -76,7 +76,7 @@ body {
 }
 
 #mocha .test pre.error {
-  color: #c00;
+  display: none;
 }
 
 #mocha .test pre {
