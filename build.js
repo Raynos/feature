@@ -25,6 +25,16 @@ function flatten(o) {
     return arr;
 }
 
+writeArray({
+    interface: "DOMSettableTokenList",
+    path: path.join(__dirname, "lib", "features", "DOM"),
+    writeFolder: false,
+    methods: [
+    ],
+    props: [
+    ]
+});
+
 function writeArray(options) {
     if (options.writeFolder) {
         fs.mkdirSync(
@@ -38,7 +48,7 @@ function writeArray(options) {
     }
     options.methods.forEach(function (name) {
         var str = "features[\"DOM." + options.interface + "." + name + 
-            "\"] = !!(document.createProcessingInstruction('foo')." + name + ");"
+            "\"] = !!(document.documentElement.classList && document.documentElement.classList." + name + ");"
         fs.writeFileSync(
             path.join(options.path, options.interface, name + ".js"),
             str
@@ -46,7 +56,7 @@ function writeArray(options) {
     });
     options.props.forEach(function (name) {
         var str = "features[\"DOM." + options.interface + "." + name + 
-            "\"] = !!(\"" + name + "\" in document.createTextNode('foo'));"
+            "\"] = !!(document.documentElement.classList && \"" + name + "\" in document.documentElement.classList);"
         fs.writeFileSync(
             path.join(options.path, options.interface, name + ".js"),
             str
