@@ -48,6 +48,26 @@ features["DOM.DOMError.exists"] = !!window.DOMError;
 }());
 
 (function () { 
+features["DOM.DOMImplementation.hasFeature"] = !!(document.implementation.hasFeature);
+}());
+
+(function () { 
+features["DOM.DOMImplementation.exists"] = !!(window.DOMImplementation);
+}());
+
+(function () { 
+features["DOM.DOMImplementation.createDocumentType"] = !!(document.implementation.createDocumentType);
+}());
+
+(function () { 
+features["DOM.DOMImplementation.createHTMLDocument"] = !!(document.implementation.createHTMLDocument);
+}());
+
+(function () { 
+features["DOM.DOMImplementation.createDocument"] = !!(document.implementation.createDocument);
+}());
+
+(function () { 
 features["DOM.Node.contains"] = !!(document.contains);
 }());
 
@@ -165,6 +185,123 @@ features["DOM.Node.childNodes"] = !!(document.childNodes);
 
 (function () { 
 features["DOM.Node.previousSibling"] = ("previousSibling" in document);
+}());
+
+(function () { 
+features["DOM.Document.createDocumentFragment"] = 
+    !!(document.createDocumentFragment);
+}());
+
+(function () { 
+features["DOM.Document.createTreeWalker"] = !!(document.createTreeWalker);
+}());
+
+(function () { 
+features["DOM.Document.append"] = !!(document.append);
+}());
+
+(function () { 
+features["DOM.Document.createElementNS"] = 
+    !!(document.createElementNS);
+}());
+
+(function () { 
+features["DOM.Document.getElementById"] = !!(document.getElementById);
+}());
+
+(function () { 
+features["DOM.Document.importNode"] = !!(document.importNode);
+}());
+
+(function () { 
+features["DOM.Document.contentType"] = ("contentType" in document);
+}());
+
+(function () { 
+features["DOM.Document.createEvent"] = !!(document.createEvent);
+}());
+
+(function () { 
+features["DOM.Document.exists"] = !!(window.Document);
+}());
+
+(function () { 
+features["DOM.Document.createTextNode"] = 
+    !!(document.createTextNode);
+}());
+
+(function () { 
+features["DOM.Document.implementation"] = ("implementation" in document);
+}());
+
+(function () { 
+features["DOM.Document.getElementsByTagNameNS"] =
+    !!(document.getElementsByTagNameNS);
+}());
+
+(function () { 
+features["DOM.Document.characterSet"] = ("characterSet" in document)
+}());
+
+(function () { 
+features["DOM.Document.getElementsByTagName"] = 
+    !!(document.getElementsByTagName);
+}());
+
+(function () { 
+features["DOM.Document.documentURI"] = ("documentURI" in document);
+}());
+
+(function () { 
+features["DOM.Document.documentElement"] = ("documentElement" in document)
+}());
+
+(function () { 
+features["DOM.Document.createComment"] = 
+    !!(document.createComment);
+}());
+
+(function () { 
+features["DOM.Document.adoptNode"] = !!(document.adoptNode);
+}());
+
+(function () { 
+features["DOM.Document.createRange"] = !!(document.createRange);
+}());
+
+(function () { 
+features["DOM.Document.createNodeIterator"] = !!(document.createNodeIterator);
+}());
+
+(function () { 
+features["DOM.Document.doctype"] = ("doctype" in document);
+}());
+
+(function () { 
+features["DOM.Document.createProcessingInstruction"] = 
+    !!(document.createProcessingInstruction);
+}());
+
+(function () { 
+features["DOM.Document.prepend"] = !!(document.prepend);
+}());
+
+(function () { 
+features["DOM.Document.URL"] = ("URL" in document);
+}());
+
+(function () { 
+features["DOM.Document.getElementsByClassName"] =
+    !!(document.getElementsByClassName);
+}());
+
+(function () { 
+features["DOM.Document.createElement"] = 
+    !!(document.createElement);
+}());
+
+(function () { 
+features["DOM.Document.compatMode"] = ("compatMode" in document);
 }());
 
 (function () { 

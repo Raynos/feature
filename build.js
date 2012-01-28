@@ -12,6 +12,10 @@ readDirFiles(featurePath, "utf8", function (err, files) {
     fs.writeFile(path.join(".", "feature.js"), src);
 });
 
+writeArray(path.join(__dirname, "lib", "features", "DOM", "DOMImplementation"), [
+
+]);
+
 function flatten(o) {
     var arr = [];
     Object.keys(o).forEach(function (k) {
@@ -23,4 +27,16 @@ function flatten(o) {
         }
     });
     return arr;
+}
+
+function writeArray(loc, arr) {
+    var interface = "DOMImplementation";
+    arr.forEach(function (name) {
+        var str = "features[\"DOM." + interface + "." + name + 
+            "\"] = !!(document.implementation." + name + ");"
+        fs.writeFile(
+            path.join(loc, name + ".js"),
+            str
+        );
+    });
 }
