@@ -1,6 +1,6 @@
 # Feature
 
-Detecting those host environment features for you
+Detecting those host environment features for you. [See what your browser supports][5]
 
 ## Example
 
@@ -39,6 +39,15 @@ if (features["DOM.EventTarget.addEventListener"]) {
 }
 ```
 
+The [tests file][5] shows the list of features currently being detected. It's encourage that rather then use the entire file, you build your own file using only the features you want.
+
+Currently the easiest way to make a custom build is to
+
+ - clone this project
+ - delete any files from lib/features you don't want
+ - run `node build.js`
+ - take your fresh feature.js file and use it
+
 ### Dynamic APIS
 
 Dynamic APIs require you to feature detect any part of the host environment you want to use. This is an extension of the progressive enhancement technique.
@@ -58,3 +67,5 @@ See test/test.html
  - Raynos
 
 ## MIT Licenced
+
+  [5]: http://raynos.github.com/feature/test/test.html

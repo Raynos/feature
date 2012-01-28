@@ -1,41 +1,6 @@
 ;(function () { window.features = []; 
 
 (function () { 
-var works = true;
-try {
-    new CustomEvent("click");
-} catch (e) {
-    works = false;
-}
-features["DOM.CustomEvent.Constructor"] = works;
-}());
-
-(function () { 
-features["DOM.CustomEvent.exists"] = !!window.CustomEvent;
-}());
-
-(function () { 
-var works = false,
-    ev,
-    detail = {};
-
-try {
-    ev = new CustomEvent("click", { 
-        bubbles: true, 
-        cancelable: true, 
-        detail: detail
-    });
-} catch (e) { /* empty */ }
-
-
-features["DOM.CustomEvent.detail"] = (ev && ev.detail === detail);
-}());
-
-(function () { 
-features["DOM.CharacterData.after"] = !!(document.createTextNode('foo').after);
-}());
-
-(function () { 
 features["DOM.CharacterData.insertData"] = !!(document.createTextNode('foo').insertData);
 }());
 
@@ -64,6 +29,10 @@ features["DOM.CharacterData.length"] = !!("length" in document.createTextNode('f
 }());
 
 (function () { 
+features["DOM.CharacterData.after"] = !!(document.createTextNode('foo').after);
+}());
+
+(function () { 
 features["DOM.CharacterData.appendData"] = !!(document.createTextNode('foo').appendData);
 }());
 
@@ -73,22 +42,6 @@ features["DOM.CharacterData.replace"] = !!(document.createTextNode('foo').replac
 
 (function () { 
 features["DOM.CharacterData.deleteData"] = !!(document.createTextNode('foo').deleteData);
-}());
-
-(function () { 
-features["DOM.EventTarget.addEventListener"] = !!document.addEventListener;
-}());
-
-(function () { 
-features["DOM.EventTarget.removeEventListener"] = !!document.removeEventListener;
-}());
-
-(function () { 
-features["DOM.EventTarget.dispatchEvent"] = !!document.dispatchEvent;
-}());
-
-(function () { 
-features["DOM.DOMError.exists"] = !!window.DOMError;
 }());
 
 (function () { 
@@ -140,7 +93,19 @@ features["DOM.TreeWalker.previousSibling"] = !!(document.createTreeWalker(docume
 }());
 
 (function () { 
-features["DOM.DOMStringList.exists"] = !!(window.DOMStringList);
+features["DOM.EventTarget.addEventListener"] = !!document.addEventListener;
+}());
+
+(function () { 
+features["DOM.EventTarget.removeEventListener"] = !!document.removeEventListener;
+}());
+
+(function () { 
+features["DOM.EventTarget.dispatchEvent"] = !!document.dispatchEvent;
+}());
+
+(function () { 
+features["DOM.DOMError.exists"] = !!window.DOMError;
 }());
 
 (function () { 
@@ -148,12 +113,16 @@ features["DOM.Comment.exists"] = !!(window.Comment);
 }());
 
 (function () { 
-features["DOM.NodeFilter.exists"] = !!(window.NodeFilter);
+features["DOM.DOMStringList.exists"] = !!(window.DOMStringList);
 }());
 
 (function () { 
 features["DOM.NodeFilter.constants"] = (window.NodeFilter && 
     window.NodeFilter.FILTER_SKIP === 3 && window.NodeFilter.SHOW_ELEMENT === 1);
+}());
+
+(function () { 
+features["DOM.NodeFilter.exists"] = !!(window.NodeFilter);
 }());
 
 (function () { 
@@ -426,6 +395,80 @@ features["DOM.DOMSettableTokenList.exists"] = !!(window.DOMSettableTokenList);
 }());
 
 (function () { 
+var exception;
+
+try {
+    document.appendChild(document);
+} catch (error) {
+    exception = error;
+}
+
+window.features["DOM.DOMException.code"] = (exception.code === 3);
+
+}());
+
+(function () { 
+features["DOM.DOMException.exists"] = !!window.DOMException;
+
+}());
+
+(function () { 
+features["DOM.DOMException.constants"] = 
+    (window.DOMException && window.DOMException.DATA_CLONE_ERR === 25);
+
+}());
+
+(function () { 
+features["DOM.DOMTokenList.contains"] = !!(document.documentElement.classList && document.documentElement.classList.contains);
+}());
+
+(function () { 
+features["DOM.DOMTokenList.item"] = !!(document.documentElement.classList && document.documentElement.classList.item);
+}());
+
+(function () { 
+features["DOM.DOMTokenList.remove"] = !!(document.documentElement.classList && document.documentElement.classList.remove);
+}());
+
+(function () { 
+features["DOM.DOMTokenList.getter"] = !!(
+    document.documentElement.classList && 
+    document.documentElement.classList[0]);
+}());
+
+(function () { 
+features["DOM.DOMTokenList.exists"] = !!(window.DOMTokenList);
+}());
+
+(function () { 
+features["DOM.DOMTokenList.length"] = !!(document.documentElement.classList && "length" in document.documentElement.classList);
+}());
+
+(function () { 
+features["DOM.DOMTokenList.toggle"] = !!(document.documentElement.classList && document.documentElement.classList.toggle);
+}());
+
+(function () { 
+features["DOM.DOMTokenList.add"] = !!(document.documentElement.classList && document.documentElement.classList.add);
+}());
+
+(function () { 
+features["DOM.NodeList.item"] = !!(document.childNodes.item);
+}());
+
+(function () { 
+features["DOM.NodeList.item"] = ("0" in document.childNodes);
+}());
+
+(function () { 
+features["DOM.NodeList.exists"] = !!(window.NodeList);
+}());
+
+(function () { 
+features["DOM.NodeList.length"] = !!("length" in document.childNodes);
+}());
+
+(function () { 
 features["DOM.Document.createDocumentFragment"] = 
     !!(document.createDocumentFragment);
 }());
@@ -508,10 +551,6 @@ features["DOM.Document.createRange"] = !!(document.createRange);
 }());
 
 (function () { 
-features["DOM.Document.createNodeIterator"] = !!(document.createNodeIterator);
-}());
-
-(function () { 
 features["DOM.Document.doctype"] = ("doctype" in document);
 }());
 
@@ -543,77 +582,7 @@ features["DOM.Document.compatMode"] = ("compatMode" in document);
 }());
 
 (function () { 
-var exception;
-
-try {
-    document.appendChild(document);
-} catch (error) {
-    exception = error;
-}
-
-window.features["DOM.DOMException.code"] = (exception.code === 3);
-
-}());
-
-(function () { 
-features["DOM.DOMException.exists"] = !!window.DOMException;
-
-}());
-
-(function () { 
-features["DOM.DOMException.constants"] = 
-    (window.DOMException && window.DOMException.DATA_CLONE_ERR === 25);
-
-}());
-
-(function () { 
-features["DOM.DOMTokenList.contains"] = !!(document.documentElement.classList && document.documentElement.classList.contains);
-}());
-
-(function () { 
-features["DOM.DOMTokenList.item"] = !!(document.documentElement.classList && document.documentElement.classList.item);
-}());
-
-(function () { 
-features["DOM.DOMTokenList.remove"] = !!(document.documentElement.classList && document.documentElement.classList.remove);
-}());
-
-(function () { 
-features["DOM.DOMTokenList.getter"] = !!(
-    document.documentElement.classList && 
-    document.documentElement.classList[0]);
-}());
-
-(function () { 
-features["DOM.DOMTokenList.exists"] = !!(window.DOMTokenList);
-}());
-
-(function () { 
-features["DOM.DOMTokenList.length"] = !!(document.documentElement.classList && "length" in document.documentElement.classList);
-}());
-
-(function () { 
-features["DOM.DOMTokenList.toggle"] = !!(document.documentElement.classList && document.documentElement.classList.toggle);
-}());
-
-(function () { 
-features["DOM.DOMTokenList.add"] = !!(document.documentElement.classList && document.documentElement.classList.add);
-}());
-
-(function () { 
-features["DOM.NodeList.item"] = !!(document.childNodes.item);
-}());
-
-(function () { 
-features["DOM.NodeList.item"] = ("0" in document.childNodes);
-}());
-
-(function () { 
-features["DOM.NodeList.exists"] = !!(window.NodeList);
-}());
-
-(function () { 
-features["DOM.NodeList.length"] = !!("length" in document.childNodes);
+features["DOM.Document.createNodeIterator"] = !!(document.createNodeIterator);
 }());
 
 (function () { 
@@ -737,11 +706,11 @@ features["DOM.Element.firstElementChild"] = !!("firstElementChild" in document.d
 }());
 
 (function () { 
-features["DOM.DocumentFragment.append"] = !!(document.createDocumentFragment().append);
+features["DOM.DocumentFragment.exists"] = !!(window.DocumentFragment);
 }());
 
 (function () { 
-features["DOM.DocumentFragment.exists"] = !!(window.DocumentFragment);
+features["DOM.DocumentFragment.append"] = !!(document.createDocumentFragment().append);
 }());
 
 (function () { 
@@ -749,7 +718,34 @@ features["DOM.DocumentFragment.prepend"] = !!(document.createDocumentFragment().
 }());
 
 (function () { 
-features["DOM.Event.initEvent"] = !!document.createEvent("Event").initEvent;
+var works = true;
+try {
+    new CustomEvent("click");
+} catch (e) {
+    works = false;
+}
+features["DOM.CustomEvent.Constructor"] = works;
+}());
+
+(function () { 
+features["DOM.CustomEvent.exists"] = !!window.CustomEvent;
+}());
+
+(function () { 
+var works = false,
+    ev,
+    detail = {};
+
+try {
+    ev = new CustomEvent("click", { 
+        bubbles: true, 
+        cancelable: true, 
+        detail: detail
+    });
+} catch (e) { /* empty */ }
+
+
+features["DOM.CustomEvent.detail"] = (ev && ev.detail === detail);
 }());
 
 (function () { 
@@ -761,21 +757,14 @@ input.click();
 }());
 
 (function () { 
+features["DOM.Event.initEvent"] = !!document.createEvent("Event").initEvent;
+}());
+
+(function () { 
 var input = document.createElement("input");
 input.onclick = function (event) {
     features["DOM.Event.cancelable"] = (event && event.cancelable);
 };
-input.click();
-}());
-
-(function () { 
-var div = document.createElement("div"),
-    input = document.createElement("input");
-
-div.appendChild(input);
-div.onclick = function (event) {
-    features["DOM.Event.target"] = (event && event.target === input);
-}
 input.click();
 }());
 
@@ -790,8 +779,14 @@ features["DOM.Event.Constructor"] = works;
 }());
 
 (function () { 
-features["DOM.Event.exists"] = !!window.Event;
+var div = document.createElement("div"),
+    input = document.createElement("input");
 
+div.appendChild(input);
+div.onclick = function (event) {
+    features["DOM.Event.target"] = (event && event.target === input);
+}
+input.click();
 }());
 
 (function () { 
@@ -829,6 +824,11 @@ input.onclick = function (event) {
         (event && !!event.stopImmediatePropagation);
 };
 input.click();
+}());
+
+(function () { 
+features["DOM.Event.exists"] = !!window.Event;
+
 }());
 
 (function () { 
@@ -892,10 +892,6 @@ features["DOM.Range.setEndAfter"] = !!(document.createRange().setEndAfter);
 }());
 
 (function () { 
-features["DOM.Range.surroundContents"] = !!(document.createRange().surroundContents);
-}());
-
-(function () { 
 features["DOM.Range.isPointInRange"] = !!(document.createRange().isPointInRange);
 }());
 
@@ -913,6 +909,10 @@ features["DOM.Range.startOffset"] = !!("startOffset" in document.createRange());
 }());
 
 (function () { 
+features["DOM.Range.surroundContents"] = !!(document.createRange().surroundContents);
+}());
+
+(function () { 
 features["DOM.Range.selectNodeContents"] = !!(document.createRange().selectNodeContents);
 }());
 
@@ -921,11 +921,11 @@ features["DOM.Range.exists"] = !!(window.Range);
 }());
 
 (function () { 
-features["DOM.Range.cloneRange"] = !!(document.createRange().cloneRange);
+features["DOM.Range.compareBoundaryPoints"] = !!(document.createRange().compareBoundaryPoints);
 }());
 
 (function () { 
-features["DOM.Range.compareBoundaryPoints"] = !!(document.createRange().compareBoundaryPoints);
+features["DOM.Range.cloneRange"] = !!(document.createRange().cloneRange);
 }());
 
 (function () { 
@@ -945,10 +945,6 @@ features["DOM.Range.commonAncestorContainer"] = !!("commonAncestorContainer" in 
 }());
 
 (function () { 
-features["DOM.Range.startContainer"] = !!("startContainer" in document.createRange());
-}());
-
-(function () { 
 features["DOM.Range.collapsed"] = !!("collapsed" in document.createRange());
 }());
 
@@ -958,6 +954,10 @@ features["DOM.Range.endOffset"] = !!("endOffset" in document.createRange());
 
 (function () { 
 features["DOM.Range.setStartBefore"] = !!(document.createRange().setStartBefore);
+}());
+
+(function () { 
+features["DOM.Range.startContainer"] = !!("startContainer" in document.createRange());
 }());
 
 (function () { 
@@ -985,19 +985,19 @@ features["DOM.Range.detach"] = !!(document.createRange().detach);
 }());
 
 (function () { 
-features["DOM.Range.comparePoint"] = !!(document.createRange().comparePoint);
-}());
-
-(function () { 
 features["DOM.Range.selectNode"] = !!(document.createRange().selectNode);
 }());
 
 (function () { 
-features["DOM.Attr.localName"] = !!("localName" in document.documentElement.attributes[0]);
+features["DOM.Range.comparePoint"] = !!(document.createRange().comparePoint);
 }());
 
 (function () { 
 features["DOM.Attr.exists"] = !!(window.Attr);
+}());
+
+(function () { 
+features["DOM.Attr.localName"] = !!("localName" in document.documentElement.attributes[0]);
 }());
 
 (function () { 
