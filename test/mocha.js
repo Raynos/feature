@@ -1386,6 +1386,18 @@ function HTML(runner) {
     stack[0].appendChild(el);
     stack.unshift(Fragment('<div>').firstChild);
     el.appendChild(stack[0]);
+
+    var h1 = el.getElementsByTagName("h1")[0];
+    var next = h1.nextSibling;
+    while (next.nodeType !== 1) next = next.nextSibling;
+
+    addEvent(h1, "click", function () {
+      if (next.style.display === "none") {
+        next.style.display = "block";
+      } else {
+        next.style.display = "none";
+      }
+    })
   });
 
   runner.on('suite end', function(suite){
@@ -1426,17 +1438,6 @@ function HTML(runner) {
 
       el.appendChild(Fragment('<pre class="error">' + escape(str) + '</pre>'));
     }
-
-    // toggle code
-    var h2 = el.getElementsByTagName("h2")[0];
-
-    addEvent(h2, "click", function () {
-      if (pre.style.display === 'none') {
-        pre.style.display = 'block';
-      } else {
-        pre.style.display = 'none';
-      }
-    });
 
     // code
     // TODO: defer

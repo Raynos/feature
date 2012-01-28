@@ -12,10 +12,6 @@ readDirFiles(featurePath, "utf8", function (err, files) {
     fs.writeFile(path.join(".", "feature.js"), src);
 });
 
-writeArray(path.join(__dirname, "lib", "features", "DOM", "DOMImplementation"), [
-
-]);
-
 function flatten(o) {
     var arr = [];
     Object.keys(o).forEach(function (k) {
@@ -29,13 +25,30 @@ function flatten(o) {
     return arr;
 }
 
-function writeArray(loc, arr) {
-    var interface = "DOMImplementation";
-    arr.forEach(function (name) {
-        var str = "features[\"DOM." + interface + "." + name + 
-            "\"] = !!(document.implementation." + name + ");"
-        fs.writeFile(
-            path.join(loc, name + ".js"),
+function writeArray(options) {
+    if (options.writeFolder) {
+        fs.mkdirSync(
+            path.join(options.path, options.interface)
+        );
+        fs.writeFileSync(
+            path.join(options.path, options.interface, "exists.js"),
+            "features[\"DOM." + options.interface + ".exists\"] = " +
+                "!!(window." + options.interface + ");"
+        );
+    }
+    options.methods.forEach(function (name) {
+        var str = "features[\"DOM." + options.interface + "." + name + 
+            "\"] = !!(document.createProcessingInstruction('foo')." + name + ");"
+        fs.writeFileSync(
+            path.join(options.path, options.interface, name + ".js"),
+            str
+        );
+    });
+    options.props.forEach(function (name) {
+        var str = "features[\"DOM." + options.interface + "." + name + 
+            "\"] = !!(\"" + name + "\" in document.createTextNode('foo'));"
+        fs.writeFileSync(
+            path.join(options.path, options.interface, name + ".js"),
             str
         );
     });
