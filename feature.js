@@ -1,6 +1,15 @@
 ;(function () { window.features = []; 
 
 (function () { 
+features["DOM.DOMError.exists"] = !!window.DOMError;
+}());
+
+(function () { 
+features["DOM.DOMException.exists"] = !!window.DOMException;
+
+}());
+
+(function () { 
 var exception;
 
 try {
@@ -9,16 +18,33 @@ try {
     exception = error;
 }
 
-window.features["DOMException.code"] = (exception.code === 3 ? true : false);
+window.features["DOM.DOMException.code"] = (exception.code === 3);
+
 }());
 
 (function () { 
-features["DOMException"] = (window.DOMException ? true : false);
+features["DOM.DOMException.constants"] = 
+    (window.DOMException.DATA_CLONE_ERR === 25);
+
 }());
 
 (function () { 
-features["DOMException.constants"] = 
-    (DOMException.DATA_CLONE_ERR === 25) ? true : false;
+features["DOM.Event.exists"] = !!window.Event;
+
+}());
+
+(function () { 
+var input = document.createElement("input");
+
+input.onclick = function (event) {
+    features["DOM.Event.type"] = (event && event.type === "click");
+};
+
+input.click();
+}());
+
+(function () { 
+features["DOM.Event.constants"] = (window.Event.AT_TARGET === 2);
 }());
 
 

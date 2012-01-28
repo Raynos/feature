@@ -15,7 +15,13 @@
         <script>
           onload = function () {
             runner = mocha.run()
-              .globals(["runner", "onerror", "location", "features"]);
+              .globals([
+                  "runner", 
+                  "onerror", 
+                  "location", 
+                  "features",
+                  "assert"
+              ]);
           }
         </script>
     </head>
@@ -24,13 +30,44 @@
         <div id="mocha"></div>
         <div id="testbody"></div>
         <script>
+            (function () { 
             suite("Features", function () {
-                Object.keys(window.features).forEach(function (feature) {
-                    test(feature, function () {
-                        assert(features[feature], feature);    
-                    });
-                });    
+                runTests(toObject(window.features));
             });
+
+            function toObject(features) {
+                var ret = {};
+                Object.keys(features).forEach(function (feature) {
+                    var strs = feature.split(".");
+                    var curr = ret;
+                    for (var i = 0, len = strs.length; i < len; i++) {
+                        var str = strs[i];
+                        if (!curr[str] && i !== len - 1) {
+                            curr[str] = {};
+                        } else if (!curr[str]) {
+                            curr[str] = features[feature];
+                        }
+                        curr = curr[str];
+                    }
+                });
+                return ret;
+            }
+
+            function runTests(features) {
+                Object.keys(features).forEach(function (name) {
+                    var value = features[name];
+                    if (typeof value === "object") {
+                        suite(name, function () {
+                            runTests(value); 
+                        });
+                    } else {
+                        test(name, function () {
+                            assert(value, name); 
+                        });
+                    }
+                })
+            }
+            }());
         </script>
     </body>
 </html>
