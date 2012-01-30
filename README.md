@@ -29,7 +29,7 @@ Detecting those host environment features for you. [See what your browser suppor
 
 ### features
 
-`window.features` is a global object containing all the features that are present in this browser. If the feature is present it's value is `true` and `false` if the feature test failed.
+`window.features` is a global object containing all the features that are present in this browser. If the feature is present its value is `true` and `false` if the feature test failed.
 
 ```
 if (features["DOM.EventTarget.addEventListener"]) {
@@ -39,7 +39,7 @@ if (features["DOM.EventTarget.addEventListener"]) {
 }
 ```
 
-The [tests file][5] shows the list of features currently being detected. It's encourage that rather then use the entire file, you build your own file using only the features you want.
+The [tests file][5] shows the list of features currently being detected. It's encouraged that rather then use the entire file, you build your own file using only the features you want.
 
 Currently the easiest way to make a custom build is to
 
