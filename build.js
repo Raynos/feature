@@ -1,15 +1,38 @@
 var fs = require("fs"),
     path = require("path"),
     readDirFiles = require("read-dir-files"),
-    featurePath = path.join(__dirname, "lib", "features");
+    featurePath = path.join(__dirname, "lib", "features")
+
+var loadScript = ";(function () {\n" +
+    "   var features = window.features,\n" +
+    "       load = {},\n" +
+    "       script = document.createElement('script')\n" +
+    "\n" +
+    "   Object.keys(features).forEach(function (key) {\n" +
+    "        if (features[key] === false) {\n" +
+    "            load[key] = true\n" +
+    "        }\n" +
+    "    })\n" +
+    "\n" +
+    "   script.type = 'text/javascript'\n" +
+    "   script.src = 'http://localhost:8084?features=' + \n" +
+    "       encodeURIComponent(JSON.stringify(load))\n" +
+    "\n" +
+    "    document.body.appendChild(script)\n" +
+    "}())"
 
 readDirFiles(featurePath, "utf8", function (err, files) {
-    if (err) throw err;
+    if (err) {
+        throw err
+    }
     files = flatten(files).map(function (v) {
-        return "(function () { \n" + v.toString() + "\n}());\n\n";
-    }).join("");
-    var src = ";(function () { window.features = []; \n\n" + files + "\n}())";
-    fs.writeFile(path.join(".", "feature.js"), src);
+        return "(function () { \n" + v.toString() + "\n}());\n\n"
+    }).join("")
+
+    var src = ";(function () { window.features = {}; \n\n" + 
+        files + "\n}())" + loadScript
+
+    fs.writeFile(path.join(".", "feature.js"), src)
 });
 
 function flatten(o) {
@@ -23,43 +46,4 @@ function flatten(o) {
         }
     });
     return arr;
-}
-
-writeArray({
-    interface: "DOMSettableTokenList",
-    path: path.join(__dirname, "lib", "features", "DOM"),
-    writeFolder: false,
-    methods: [
-    ],
-    props: [
-    ]
-});
-
-function writeArray(options) {
-    if (options.writeFolder) {
-        fs.mkdirSync(
-            path.join(options.path, options.interface)
-        );
-        fs.writeFileSync(
-            path.join(options.path, options.interface, "exists.js"),
-            "features[\"DOM." + options.interface + ".exists\"] = " +
-                "!!(window." + options.interface + ");"
-        );
-    }
-    options.methods.forEach(function (name) {
-        var str = "features[\"DOM." + options.interface + "." + name + 
-            "\"] = !!(document.documentElement.classList && document.documentElement.classList." + name + ");"
-        fs.writeFileSync(
-            path.join(options.path, options.interface, name + ".js"),
-            str
-        );
-    });
-    options.props.forEach(function (name) {
-        var str = "features[\"DOM." + options.interface + "." + name + 
-            "\"] = !!(document.documentElement.classList && \"" + name + "\" in document.documentElement.classList);"
-        fs.writeFileSync(
-            path.join(options.path, options.interface, name + ".js"),
-            str
-        );
-    });
 }
