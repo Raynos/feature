@@ -28,7 +28,7 @@ try {
 } catch (e) { /* empty */ }
 
 
-features["DOM.CustomEvent.detail"] = (ev && ev.detail === detail);
+features["DOM.CustomEvent.detail"] = !!(ev && ev.detail === detail);
 }());
 
 (function () { 
@@ -92,11 +92,11 @@ features["DOM.DOMError.exists"] = !!window.DOMError;
 }());
 
 (function () { 
-features["DOM.TreeWalker.root"] = !!("root" in document.createTreeWalker(document, 0, {}, 0));
+features["DOM.TreeWalker.exists"] = !!(window.TreeWalker);
 }());
 
 (function () { 
-features["DOM.TreeWalker.exists"] = !!(window.TreeWalker);
+features["DOM.TreeWalker.root"] = !!("root" in document.createTreeWalker(document, 0, {}, 0));
 }());
 
 (function () { 
@@ -620,6 +620,18 @@ features["DOM.NodeList.length"] = !!("length" in document.childNodes);
 }());
 
 (function () { 
+features["DOM.DocumentFragment.append"] = !!(document.createDocumentFragment().append);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.exists"] = !!(window.DocumentFragment);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.prepend"] = !!(document.createDocumentFragment().prepend);
+}());
+
+(function () { 
 features["DOM.Element.append"] = !!(document.documentElement.append);
 }());
 
@@ -737,18 +749,6 @@ features["DOM.Element.removeAttributeNS"] = !!(document.documentElement.removeAt
 
 (function () { 
 features["DOM.Element.firstElementChild"] = !!("firstElementChild" in document.documentElement);
-}());
-
-(function () { 
-features["DOM.DocumentFragment.append"] = !!(document.createDocumentFragment().append);
-}());
-
-(function () { 
-features["DOM.DocumentFragment.exists"] = !!(window.DocumentFragment);
-}());
-
-(function () { 
-features["DOM.DocumentFragment.prepend"] = !!(document.createDocumentFragment().prepend);
 }());
 
 (function () { 
@@ -883,6 +883,50 @@ features["DOM.Event.constants"] = (window.Event && window.Event.AT_TARGET === 2)
 }());
 
 (function () { 
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.localName"] = !!("localName" in attr)
+}());
+
+(function () { 
+features["DOM.Attr.exists"] = !!(window.Attr);
+}());
+
+(function () { 
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.prefix"] = !!("prefix" in attr)
+}());
+
+(function () { 
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.namespaceURI"] = !!("namespaceURI" in attr)
+}());
+
+(function () { 
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.value"] = !!("value" in attr)
+}());
+
+(function () { 
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.name"] = !!("name" in attr)
+}());
+
+(function () { 
 features["DOM.Range.deleteContents"] = !!(document.createRange().deleteContents);
 }());
 
@@ -940,15 +984,15 @@ features["DOM.Range.extractContents"] = !!(document.createRange().extractContent
 }());
 
 (function () { 
+features["DOM.Range.endContainer"] = !!("endContainer" in document.createRange());
+}());
+
+(function () { 
 features["DOM.Range.commonAncestorContainer"] = !!("commonAncestorContainer" in document.createRange());
 }());
 
 (function () { 
 features["DOM.Range.startContainer"] = !!("startContainer" in document.createRange());
-}());
-
-(function () { 
-features["DOM.Range.endContainer"] = !!("endContainer" in document.createRange());
 }());
 
 (function () { 
@@ -993,50 +1037,6 @@ features["DOM.Range.comparePoint"] = !!(document.createRange().comparePoint);
 
 (function () { 
 features["DOM.Range.selectNode"] = !!(document.createRange().selectNode);
-}());
-
-(function () { 
-var node = document.createElement("div")
-node.setAttribute("foo", "bar")
-var attr = node.attributes[0]
-
-features["DOM.Attr.localName"] = !!("localName" in attr)
-}());
-
-(function () { 
-features["DOM.Attr.exists"] = !!(window.Attr);
-}());
-
-(function () { 
-var node = document.createElement("div")
-node.setAttribute("foo", "bar")
-var attr = node.attributes[0]
-
-features["DOM.Attr.prefix"] = !!("prefix" in attr)
-}());
-
-(function () { 
-var node = document.createElement("div")
-node.setAttribute("foo", "bar")
-var attr = node.attributes[0]
-
-features["DOM.Attr.namespaceURI"] = !!("namespaceURI" in attr)
-}());
-
-(function () { 
-var node = document.createElement("div")
-node.setAttribute("foo", "bar")
-var attr = node.attributes[0]
-
-features["DOM.Attr.value"] = !!("value" in attr)
-}());
-
-(function () { 
-var node = document.createElement("div")
-node.setAttribute("foo", "bar")
-var attr = node.attributes[0]
-
-features["DOM.Attr.name"] = !!("name" in attr)
 }());
 
 (function () { 
