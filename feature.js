@@ -1,15 +1,34 @@
 ;(function () { window.features = {}; 
 
 (function () { 
-features["DOM.EventTarget.addEventListener"] = !!document.addEventListener;
+var works = true;
+try {
+    new CustomEvent("click");
+} catch (e) {
+    works = false;
+}
+features["DOM.CustomEvent.Constructor"] = works;
 }());
 
 (function () { 
-features["DOM.EventTarget.removeEventListener"] = !!document.removeEventListener;
+features["DOM.CustomEvent.exists"] = !!window.CustomEvent;
 }());
 
 (function () { 
-features["DOM.EventTarget.dispatchEvent"] = !!document.dispatchEvent;
+var works = false,
+    ev,
+    detail = {};
+
+try {
+    ev = new CustomEvent("click", { 
+        bubbles: true, 
+        cancelable: true, 
+        detail: detail
+    });
+} catch (e) { /* empty */ }
+
+
+features["DOM.CustomEvent.detail"] = (ev && ev.detail === detail);
 }());
 
 (function () { 
@@ -21,11 +40,11 @@ features["DOM.CharacterData.insertData"] = !!(document.createTextNode('foo').ins
 }());
 
 (function () { 
-features["DOM.CharacterData.remove"] = !!(document.createTextNode('foo').remove);
+features["DOM.CharacterData.exists"] = !!(window.CharacterData);
 }());
 
 (function () { 
-features["DOM.CharacterData.exists"] = !!(window.CharacterData);
+features["DOM.CharacterData.remove"] = !!(document.createTextNode('foo').remove);
 }());
 
 (function () { 
@@ -54,6 +73,18 @@ features["DOM.CharacterData.replace"] = !!(document.createTextNode('foo').replac
 
 (function () { 
 features["DOM.CharacterData.deleteData"] = !!(document.createTextNode('foo').deleteData);
+}());
+
+(function () { 
+features["DOM.EventTarget.addEventListener"] = !!document.addEventListener;
+}());
+
+(function () { 
+features["DOM.EventTarget.removeEventListener"] = !!document.removeEventListener;
+}());
+
+(function () { 
+features["DOM.EventTarget.dispatchEvent"] = !!document.dispatchEvent;
 }());
 
 (function () { 
@@ -548,9 +579,12 @@ features["DOM.DOMTokenList.remove"] = !!(document.documentElement.classList && d
 }());
 
 (function () { 
+var node = document.createElement("div")
+node.className = "foo"
+
 features["DOM.DOMTokenList.getter"] = !!(
-    document.documentElement.classList && 
-    document.documentElement.classList[0]);
+    node.classList && 
+    node.classList[0]);
 }());
 
 (function () { 
@@ -583,18 +617,6 @@ features["DOM.NodeList.exists"] = !!(window.NodeList);
 
 (function () { 
 features["DOM.NodeList.length"] = !!("length" in document.childNodes);
-}());
-
-(function () { 
-features["DOM.DocumentFragment.append"] = !!(document.createDocumentFragment().append);
-}());
-
-(function () { 
-features["DOM.DocumentFragment.exists"] = !!(window.DocumentFragment);
-}());
-
-(function () { 
-features["DOM.DocumentFragment.prepend"] = !!(document.createDocumentFragment().prepend);
 }());
 
 (function () { 
@@ -715,6 +737,18 @@ features["DOM.Element.removeAttributeNS"] = !!(document.documentElement.removeAt
 
 (function () { 
 features["DOM.Element.firstElementChild"] = !!("firstElementChild" in document.documentElement);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.append"] = !!(document.createDocumentFragment().append);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.exists"] = !!(window.DocumentFragment);
+}());
+
+(function () { 
+features["DOM.DocumentFragment.prepend"] = !!(document.createDocumentFragment().prepend);
 }());
 
 (function () { 
@@ -906,15 +940,15 @@ features["DOM.Range.extractContents"] = !!(document.createRange().extractContent
 }());
 
 (function () { 
-features["DOM.Range.endContainer"] = !!("endContainer" in document.createRange());
-}());
-
-(function () { 
 features["DOM.Range.commonAncestorContainer"] = !!("commonAncestorContainer" in document.createRange());
 }());
 
 (function () { 
 features["DOM.Range.startContainer"] = !!("startContainer" in document.createRange());
+}());
+
+(function () { 
+features["DOM.Range.endContainer"] = !!("endContainer" in document.createRange());
 }());
 
 (function () { 
@@ -962,7 +996,11 @@ features["DOM.Range.selectNode"] = !!(document.createRange().selectNode);
 }());
 
 (function () { 
-features["DOM.Attr.localName"] = !!("localName" in document.documentElement.attributes[0]);
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.localName"] = !!("localName" in attr)
 }());
 
 (function () { 
@@ -970,50 +1008,35 @@ features["DOM.Attr.exists"] = !!(window.Attr);
 }());
 
 (function () { 
-features["DOM.Attr.prefix"] = !!("prefix" in document.documentElement.attributes[0]);
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.prefix"] = !!("prefix" in attr)
 }());
 
 (function () { 
-features["DOM.Attr.namespaceURI"] = !!("namespaceURI" in document.documentElement.attributes[0]);
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.namespaceURI"] = !!("namespaceURI" in attr)
 }());
 
 (function () { 
-features["DOM.Attr.value"] = !!("value" in document.documentElement.attributes[0]);
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
+
+features["DOM.Attr.value"] = !!("value" in attr)
 }());
 
 (function () { 
-features["DOM.Attr.name"] = !!("name" in document.documentElement.attributes[0]);
-}());
+var node = document.createElement("div")
+node.setAttribute("foo", "bar")
+var attr = node.attributes[0]
 
-(function () { 
-var works = true;
-try {
-    new CustomEvent("click");
-} catch (e) {
-    works = false;
-}
-features["DOM.CustomEvent.Constructor"] = works;
-}());
-
-(function () { 
-features["DOM.CustomEvent.exists"] = !!window.CustomEvent;
-}());
-
-(function () { 
-var works = false,
-    ev,
-    detail = {};
-
-try {
-    ev = new CustomEvent("click", { 
-        bubbles: true, 
-        cancelable: true, 
-        detail: detail
-    });
-} catch (e) { /* empty */ }
-
-
-features["DOM.CustomEvent.detail"] = (ev && ev.detail === detail);
+features["DOM.Attr.name"] = !!("name" in attr)
 }());
 
 (function () { 
@@ -1072,5 +1095,5 @@ features["HTML.Microdata.Document.DocumentFragment.getItems"] = !!(document.crea
    script.src = 'http://localhost:8084?features=' + 
        encodeURIComponent(JSON.stringify(load))
 
-    document.getElementsByTagName("head")[0].appendChild(script)
+    document.getElementsByTagName('head')[0].appendChild(script)
 }())

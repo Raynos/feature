@@ -10,6 +10,6 @@ build:
 	node build.js
 
 test: 
-	firefox test/test.html
+	firefox test/test.html &
 
 .PHONY: gh-pages build test

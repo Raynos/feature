@@ -18,7 +18,7 @@ var loadScript = ";(function () {\n" +
     "   script.src = 'http://localhost:8084?features=' + \n" +
     "       encodeURIComponent(JSON.stringify(load))\n" +
     "\n" +
-    "    document.body.appendChild(script)\n" +
+    "    document.getElementsByTagName('head')[0].appendChild(script)\n" +
     "}())"
 
 readDirFiles(featurePath, "utf8", function (err, files) {
