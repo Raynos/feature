@@ -1080,6 +1080,17 @@ features["HTML.Microdata.Document.DocumentFragment.getItems"] = !!(document.crea
     features["DOM.Intl.exists"] = !!(window.Intl);
 }());
 
+(function(){
+    var works = false;
+    var number = 0;
+    try {
+	number.toLocaleString("i");
+    } catch (e) {
+	works = (e.name === "RangeError");
+    }
+    features["DOM.Number.toLocalString(locale, options)"] = works;
+}());
+
 }());(function () {
    var features = window.features,
        load = {},
