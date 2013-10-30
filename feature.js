@@ -1076,6 +1076,9 @@ features["HTML.Microdata.Document.getItems"] = !!(document.getItems);
 features["HTML.Microdata.Document.DocumentFragment.getItems"] = !!(document.createDocumentFragment().getItems);
 }());
 
+(function(){
+    features["DOM.Intl.exists"] = !!(window.Intl);
+}());
 
 }());(function () {
    var features = window.features,
