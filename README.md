@@ -39,7 +39,7 @@ if (features["DOM.EventTarget.addEventListener"]) {
 }
 ```
 
-The [tests file][5] shows the list of features currently being detected. It's encouraged that rather then use the entire file, you build your own file using only the features you want.
+The [tests file][5] shows the list of features currently being detected. It's encouraged that rather than use the entire file, you build your own file using only the features you want.
 
 Currently the easiest way to make a custom build is to
 
@@ -52,7 +52,7 @@ Currently the easiest way to make a custom build is to
 
 Dynamic APIs require you to feature detect any part of the host environment you want to use. This is an extension of the progressive enhancement technique.
 
-The basic idea is that you have a HTML/CSS page that works. Then include a javascript enhancement file which checks whether the host environment has the features it needs. If it has them (either natively or by polyfill) it will safely enhance the page without throwing an error. If the browser doesn't have the features then rather then throwing a run-time error it will just do nothing.
+The basic idea is that you have a HTML/CSS page that works. Then include a javascript enhancement file which checks whether the host environment has the features it needs. If it has them (either natively or by polyfill) it will safely enhance the page without throwing an error. If the browser doesn't have the features then rather than throwing a run-time error it will just do nothing.
 
 ## Installation
 
